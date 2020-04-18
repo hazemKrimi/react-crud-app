@@ -10,6 +10,7 @@ const Global = createGlobalStyle`
     font-family: 'Baloo Paaji 2';
     font-size: 17px;
     user-select: none;
+    outline: none;
   }
 
   body {

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../components/Button';
+import AuthForm from '../components/AuthForm';
 
 // const StyledPost = styled.div`
 //   margin: 20px;
@@ -27,14 +28,19 @@ const StyledDiv = styled.div`
   }
 `;
 
-const LandingPage = () => (
-  <StyledDiv>
-    <h2>This is a Simple CRUD app that consumes a GraphQL api of posts and users</h2>
-    <div>
-      <Button text='Signup' />
-      <span>Login</span>
-    </div>
-  </StyledDiv>
-);
+const LandingPage = () => {
+  const [form, setForm] = useState(false);
+
+  return (
+    <StyledDiv>
+      <h2>This is a Simple CRUD app that consumes a GraphQL api of posts and users</h2>
+      <div>
+        <Button text='Signup' handler={() => setForm('signup')} />
+        <span onClick={() => setForm('login')}>Login</span>
+      </div>
+      { form !== false && <AuthForm type={form} cancel={() => setForm(false)} /> }
+    </StyledDiv>
+  );
+}
 
 export default LandingPage;
