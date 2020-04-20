@@ -28,11 +28,11 @@ const Global = createGlobalStyle`
 `;
 
 const GlobalStyle = () => {
-    const { darkMode } = useContext(MainContext);
-    
-    return (
-        <Global mode={darkMode ? 1 : 0} />
-    );
+  const { darkMode } = useContext(MainContext);
+  
+  return (
+    <Global mode={darkMode ? 1 : 0} />
+  );
 }
 
 export default GlobalStyle;

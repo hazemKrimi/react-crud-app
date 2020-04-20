@@ -5,6 +5,7 @@ export const MainContext = createContext();
 const MainContextProvider = ({ children }) => {
     const [jwt, setJwt] = useState('');
     const [darkMode, setDarkMode] = useState(false);
+    const [form, setForm] = useState(false);
 
     useEffect(() => {
         if (localStorage.getItem('jwt') && localStorage.getItem('jwt').length > 0) setJwt(localStorage.getItem('jwt'));
@@ -43,7 +44,7 @@ const MainContextProvider = ({ children }) => {
     };
     
     return (
-        <MainContext.Provider value={{ darkMode, jwt, login, logout, toggleDarkMode }}>
+        <MainContext.Provider value={{ darkMode, form, jwt, setForm, login, logout, toggleDarkMode }}>
             { children }
         </MainContext.Provider>
     );

@@ -34,15 +34,16 @@ const StyledNav = styled.nav`
 
 const Nav = () => {
     const { darkMode, toggleDarkMode } = useContext(MainContext);
+    const { setForm } = useContext(MainContext);
 
     return (
         <StyledNav mode={darkMode ? 1 : 0}>
             <h2>React CRUD App</h2>
             <ul>
-                <li>
+                <li onClick={() => setForm('login')}>
                     Login
                 </li>
-                <li>
+                <li onClick={() => setForm('signup')}>
                     Signup
                 </li>
                 <li onClick={() => toggleDarkMode()}>

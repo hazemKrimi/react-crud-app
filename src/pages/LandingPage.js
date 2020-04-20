@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Button from '../components/Button';
-import AuthForm from '../components/AuthForm';
+import SignupForm from '../components/SignupForm';
+import LoginForm from '../components/LoginForm';
+import { MainContext } from '../contexts/MainContext';
 
-// const StyledPost = styled.div`
-//   margin: 20px;
-//   padding: 20px;
-//   border: 1px solid ${props => props.mode ? 'darkblue' : 'lightblue'};
-//   border-radius: 5px;
-// `;
 
 const StyledDiv = styled.div`
   margin: 5rem 2rem;
@@ -25,20 +21,27 @@ const StyledDiv = styled.div`
   div span {
     cursor: pointer;
     margin-left: 20px;
+
+    @media(max-width: 768px) {
+      display: block;
+      margin: 0;
+      margin-top: 10px;
+    }
   }
 `;
 
 const LandingPage = () => {
-  const [form, setForm] = useState(false);
+  const { form, setForm, darkMode } = useContext(MainContext);
 
   return (
     <StyledDiv>
       <h2>This is a Simple CRUD app that consumes a GraphQL api of posts and users</h2>
       <div>
-        <Button text='Signup' handler={() => setForm('signup')} />
+        <Button mode={darkMode ? 1 : 0} onClick={() => setForm('signup')}>Signup</Button>
         <span onClick={() => setForm('login')}>Login</span>
       </div>
-      { form !== false && <AuthForm type={form} cancel={() => setForm(false)} /> }
+      { form === 'signup' && <SignupForm cancel={() => setForm(false)} /> }
+      { form === 'login' && <LoginForm cancel={() => setForm(false)} /> }
     </StyledDiv>
   );
 }
