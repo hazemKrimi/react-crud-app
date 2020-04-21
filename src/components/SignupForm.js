@@ -5,13 +5,12 @@ import Form from './Form';
 import { MainContext } from '../contexts/MainContext';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 const SignupForm = ({ cancel }) => {
-    const { darkMode } = useContext(MainContext);
+    const { darkMode, signup } = useContext(MainContext);
 
-    const signupHandler = values => {
-        console.log(values);
-    };
+    const history = useHistory();
 
     const cancelHandler = () => {
         cancel();
@@ -28,7 +27,14 @@ const SignupForm = ({ cancel }) => {
             email: Yup.string().required('Email is required').email('Email is invalid'),
             password: Yup.string().required('Password is required').min(6, 'Password is 6 characters minimum')
         }),
-        onSubmit: values => signupHandler(values)
+        onSubmit: async({ username, email, password }, { setFieldError }) => {
+            try {
+                await signup(username, email, password);
+                history.push('/home');
+            } catch(err) {
+                setFieldError('signup', err);
+            }
+        }
     });
 
     return (
@@ -72,6 +78,9 @@ const SignupForm = ({ cancel }) => {
                     <Button mode={darkMode ? 1 : 0} type='submit'>Signup</Button>
                     <span onClick={() => cancelHandler()}>Cancel</span>
                 </div>
+                {
+                    signupForm.errors.signup && <strong>{signupForm.errors.signup}</strong>
+                }
             </Form>
         </Overlay>
     );

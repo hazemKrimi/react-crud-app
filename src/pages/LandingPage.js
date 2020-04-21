@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import SignupForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
 import { MainContext } from '../contexts/MainContext';
-
+import { Redirect } from 'react-router-dom';
 
 const StyledDiv = styled.div`
   margin: 5rem 2rem;
@@ -31,9 +31,9 @@ const StyledDiv = styled.div`
 `;
 
 const LandingPage = () => {
-  const { form, setForm, darkMode } = useContext(MainContext);
+  const { user, form, setForm, darkMode } = useContext(MainContext);
 
-  return (
+  return !user ? (
     <StyledDiv>
       <h2>This is a Simple CRUD app that consumes a GraphQL api of posts and users</h2>
       <div>
@@ -43,6 +43,8 @@ const LandingPage = () => {
       { form === 'signup' && <SignupForm cancel={() => setForm(false)} /> }
       { form === 'login' && <LoginForm cancel={() => setForm(false)} /> }
     </StyledDiv>
+  ) : (
+    <Redirect to='/home' />
   );
 }
 

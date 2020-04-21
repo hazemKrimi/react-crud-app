@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { MainContext } from '../contexts/MainContext';
+import { useHistory } from 'react-router-dom';
 
 const StyledNav = styled.nav`
     padding: 1rem;
@@ -28,24 +29,42 @@ const StyledNav = styled.nav`
         li {
             cursor: pointer;
             font-weight: 300;
+            text-transform: capitalize;
         }
     }
 `;
 
 const Nav = () => {
-    const { darkMode, toggleDarkMode } = useContext(MainContext);
+    const { darkMode, toggleDarkMode, user, logout } = useContext(MainContext);
     const { setForm } = useContext(MainContext);
+
+    const history = useHistory();
 
     return (
         <StyledNav mode={darkMode ? 1 : 0}>
             <h2>React CRUD App</h2>
             <ul>
-                <li onClick={() => setForm('login')}>
-                    Login
-                </li>
-                <li onClick={() => setForm('signup')}>
-                    Signup
-                </li>
+                {
+                    user ? (
+                        <>
+                            <li>
+                                {user.username}
+                            </li>
+                            <li onClick={async() => { await logout(); history.push('/'); }}>
+                                Logout
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li onClick={() => setForm('login')}>
+                                Login
+                            </li>
+                            <li onClick={() => setForm('signup')}>
+                                Signup
+                            </li>
+                        </>
+                    )
+                }
                 <li onClick={() => toggleDarkMode()}>
                     <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
                 </li>
