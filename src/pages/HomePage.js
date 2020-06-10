@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { MainContext } from '../contexts/MainContext';
+import { AuthContext } from '../contexts/AuthContext';
 import { Redirect } from 'react-router-dom';
 
 const StyledDiv = styled.div`
@@ -18,7 +18,7 @@ const StyledDiv = styled.div`
 `;
 
 const HomePage = () => {
-    const { user } = useContext(MainContext);
+    const { user } = useContext(AuthContext);
 
     return user ? ( 
         <StyledDiv>
