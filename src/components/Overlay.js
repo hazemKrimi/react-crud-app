@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useTransition, animated, config } from 'react-spring';
-import { MainContext } from '../contexts/MainContext';
 
 const StyledDiv = styled(animated.div)`
     position: fixed;
@@ -15,9 +14,7 @@ const StyledDiv = styled(animated.div)`
     align-items: center;
 `;
 
-const Overlay = ({ children }) => {
-    const { form } = useContext(MainContext);
-
+const Overlay = ({ children, form }) => {
     const transition = useTransition(form, null, {
         from: { opacity: 0 },
         enter: { opacity: 1 },

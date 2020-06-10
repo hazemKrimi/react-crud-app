@@ -3,12 +3,14 @@ import Button from './Button';
 import Overlay from './Overlay';
 import Form from './Form';
 import { MainContext } from '../contexts/MainContext';
+import { AuthContext } from '../contexts/AuthContext';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
 
-const SignupForm = ({ cancel }) => {
-    const { darkMode, signup } = useContext(MainContext);
+const SignupForm = ({ cancel, form }) => {
+    const { darkMode } = useContext(MainContext);
+    const { signup } = useContext(AuthContext);
 
     const history = useHistory();
 
@@ -30,15 +32,16 @@ const SignupForm = ({ cancel }) => {
         onSubmit: async({ username, email, password }, { setFieldError }) => {
             try {
                 await signup(username, email, password);
+                cancel();
                 history.push('/home');
             } catch(err) {
-                setFieldError('signup', err);
+                setFieldError('signup', err.message);
             }
         }
     });
 
     return (
-        <Overlay>
+        <Overlay form={form}>
             <Form mode={darkMode ? 1 : 0} onSubmit={signupForm.handleSubmit}>
                 <h2>Signup</h2>
                 <input
@@ -76,7 +79,7 @@ const SignupForm = ({ cancel }) => {
                 }
                 <div>
                     <Button mode={darkMode ? 1 : 0} type='submit'>Signup</Button>
-                    <span onClick={() => cancelHandler()}>Cancel</span>
+                    <span style={{ marginLeft: '1rem', cursor: 'pointer' }} onClick={() => cancelHandler()}>Cancel</span>
                 </div>
                 {
                     signupForm.errors.signup && <strong>{signupForm.errors.signup}</strong>

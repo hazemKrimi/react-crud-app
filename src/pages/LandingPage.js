@@ -1,9 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import Button from '../components/Button';
-import SignupForm from '../components/SignupForm';
-import LoginForm from '../components/LoginForm';
-import { MainContext } from '../contexts/MainContext';
+import { AuthContext } from '../contexts/AuthContext';
 import { Redirect } from 'react-router-dom';
 
 const StyledDiv = styled.div`
@@ -31,17 +28,11 @@ const StyledDiv = styled.div`
 `;
 
 const LandingPage = () => {
-  const { user, form, setForm, darkMode } = useContext(MainContext);
+  const { user } = useContext(AuthContext);
 
   return !user ? (
     <StyledDiv>
       <h2>This is a Simple CRUD app that consumes a GraphQL api of posts and users</h2>
-      <div>
-        <Button mode={darkMode ? 1 : 0} onClick={() => setForm('signup')}>Signup</Button>
-        <span onClick={() => setForm('login')}>Login</span>
-      </div>
-      { form === 'signup' && <SignupForm cancel={() => setForm(false)} /> }
-      { form === 'login' && <LoginForm cancel={() => setForm(false)} /> }
     </StyledDiv>
   ) : (
     <Redirect to='/home' />
