@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import MainContextProvider from './contexts/MainContext';
-import GlobalStyle from './components/GlobalStyle';
+import AuthContextProvider from './contexts/AuthContext';
+import GlobalStyles from './components/GlobalStyles';
 import NotFound from './components/NotFound';
 import Nav from './components/Nav';
 import Alert from './components/Alert';
@@ -12,20 +13,22 @@ import HomePage from './pages/HomePage';
 
 const App = () => (
   <MainContextProvider>
-    <GlobalStyle />
-    <Alert />
-    <Nav />
-    <Switch>
-      <Route path='/' exact>
-        <LandingPage />
-      </Route>
-      <Route path='/home' exact>
-        <HomePage />
-      </Route>
-      <Route path='*' exact>
-        <NotFound />
-      </Route>
-    </Switch>
+    <AuthContextProvider>
+      <GlobalStyles />
+      <Alert />
+      <Nav />
+      <Switch>
+        <Route path='/' exact>
+          <LandingPage />
+        </Route>
+        <Route path='/home' exact>
+          <HomePage />
+        </Route>
+        <Route path='*' exact>
+          <NotFound />
+        </Route>
+      </Switch>
+    </AuthContextProvider>
   </MainContextProvider>
 );
 
