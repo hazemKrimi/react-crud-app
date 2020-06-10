@@ -27,7 +27,7 @@ const Global = createGlobalStyle`
   }
 `;
 
-const GlobalStyle = () => {
+const GlobalStyles = () => {
   const { darkMode } = useContext(MainContext);
   
   return (
@@ -35,4 +35,4 @@ const GlobalStyle = () => {
   );
 }
 
-export default GlobalStyle;
+export default GlobalStyles;

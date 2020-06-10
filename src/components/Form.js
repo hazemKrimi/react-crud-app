@@ -16,6 +16,10 @@ const Form = styled.form`
         padding: 1rem;
     }
 
+    h2 {
+        font-size: 2rem;
+    }
+
     input {
         background: ${props => props.mode ? '#444444' : '#94E1F2'};
         color: ${props => props.mode ? 'white' : 'black'};
