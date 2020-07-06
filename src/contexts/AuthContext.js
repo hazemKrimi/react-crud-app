@@ -1,7 +1,6 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 import { reducer, SIGN_UP, LOG_IN, LOG_OUT } from './reducers/authReducer';
-import { useEffect } from 'react';
 
 export const AuthContext = createContext();
 
